@@ -1,0 +1,33 @@
+<div class="container" style="margin-top: 50px;">
+    <button class="btn btn-primary float-right" style="margin-bottom: 50px; margin-top: 20px;"
+    (click)="goToCreatePage()">Ajouter un compte</button>
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Code compte</th>
+            <th scope="col">Date de de creation</th>
+            <th scope="col">Solde</th>
+            <th scope="col">Client</th>
+            <th scope="col">Employe</th>
+            <th scope="col">Decouvert</th>
+            <th scope="col">Taux</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let compte of comptes">
+          <td *ngIf="compte.type === 'CC'">Courant</td>
+          <td *ngIf="compte.type === 'CE'">Epargne</td>
+            <td>{{compte.codeCompte}}</td>
+            <td>{{compte.dateCreation | date : "dd/MM/yyy"}}</td>
+            <td>{{compte.solde  | currency}}</td>
+            <td>{{compte.client.nomClient}}</td>
+            <td>{{compte.employe.nomEmploye}}</td>
+            <td>{{compte.decouvert}}</td>
+            <td>{{compte.taux}}</td>
+          </tr>
+        </tbody>
+    </table>
+</div>
+

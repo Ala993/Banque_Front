@@ -1,0 +1,106 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-5">
+            <div class="card">
+                <div class="card-header bg-primary text-white">Consultation d'un compte</div>
+
+
+                <div class="card-body">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-auto">
+                            <label for="codeCompte" class="col-form-label">Code compte</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="text" id="codeCompte" class="form-control" [(ngModel)]="codeCompte">
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-primary" (click)="findCompte()">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card" style="margin-top:100px" *ngIf="compte">
+                <div class="card-header bg-primary text-white">Information sur le compte</div>
+                <div class="card-body">
+                    <div class="row g-3 align-items-center">
+                        <ul class="list-group">
+                            <li class="list-group-item">Code :  {{compte.codeCompte}}</li>
+                            <li class="list-group-item">Solde : <strong>{{compte.solde | currency}}</strong></li>
+                            <div *ngIf="compte.type === 'CC'">
+                                <li class="list-group-item">Type : Compte courant</li>
+                                <li class="list-group-item">Decouvert : {{compte.decouvert  | currency}}</li>
+                            </div>
+                            <div *ngIf="compte.type === 'CE'">
+                                <li class="list-group-item">Type : Compte epargne</li>
+                                <li class="list-group-item">Taux : {{compte.taux}}</li>
+                            </div>
+                            <li class="list-group-item">Date de création : {{compte.dateCreation | date : "dd/MM/yyy"}}</li>
+                            <li class="list-group-item">Nom du client : {{compte.client.nomClient}}</li>
+                          </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-5"  *ngIf="compte">
+            <div class="card">
+                <div class="card-header bg-primary text-white">Operations sur le compte</div>
+                <div class="card-body">
+                    <div class="row g-3 align-items-center">
+                        <div style="display: flex;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="operation" id="Versement" [(ngModel)]="typeOperation" [value]="'versement'">
+                                <label class="form-check-label" for="Versement">
+                                  Versement
+                                </label>
+                              </div>
+                              <div class="form-check" style="margin-left: 20px;">
+                                <input class="form-check-input" type="radio" name="operation" id="Retrait" [(ngModel)]="typeOperation" [value]="'retrait'">
+                                <label class="form-check-label" for="Retrait">
+                                 Retrait
+                                </label>
+                              </div>
+                        </div>
+                        <div class="col-auto">
+                            <label for="montant" class="col-form-label">Montant</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="number" id="montant" class="form-control" [(ngModel)]="montant">
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-primary" (click)="executOperation()" [disabled]="!typeOperation">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      
+            <div class="card" style="margin-top:60px">
+                <div class="card-header bg-primary text-white">Liste des operations</div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                           
+                            <th scope="col">Type</th>
+                            <th scope="col">Numero de l'operation</th>
+                            <th scope="col">Date de l'operation</th>
+                            <th scope="col">Montant</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let operation of operations">
+                          <td *ngIf="operation.type === 'V'">Versement</td>
+                          <td *ngIf="operation.type === 'R'">Retrait</td>
+                            <td>{{operation.numeroOperation}}</td>
+                            <td>{{operation.dateOperation | date : "dd/MM/yyy"}}</td>
+                            <td>{{operation.montant  | currency}}</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="row align-items-center" style=" margin-top:  30px">
+    <div class="col-4"></div>
+    <form class="col-4" >
+        <h3 style="margin-bottom: 20px; text-align: center;">Créer un compte</h3>
+        <div class="form-group">
+          <label style="font-size: larger; margin-bottom: 5px;">Code compte</label>
+          <input type="text" class="form-control" id="author" name="author" [(ngModel)]="compte.codeCompte">
+      </div>
+        <div class="form-group mt-3">
+          <label style="font-size: larger;margin-bottom: 5px;">Type du compte</label>
+            <div style="display: flex;">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="typeCompte" id="Courant" [(ngModel)]="compte.type" [value]="'CC'">
+                    <label class="form-check-label" for="Courant">
+                      Courant
+                    </label>
+                  </div>
+                  <div class="form-check" style="margin-left: 20px;">
+                    <input class="form-check-input" type="radio" name="typeCompte" id="Epargne" [(ngModel)]="compte.type" [value]="'CE'">
+                    <label class="form-check-label" for="Epargne">
+                     Epargne
+                    </label>
+                  </div>
+            </div>
+        </div>
+        <div class="form-group mt-3">
+            <label style="font-size: larger;margin-bottom: 5px;">Nom du client</label>
+            <input type="text" class="form-control" id="author" name="author" [(ngModel)]="compte.client.nomClient">
+        </div>
+        
+        <div style=" text-align: center; margin-top: 20px;">
+          <button class="btn btn-secondary " (click)="cancel()"> Annuler</button>
+          <button class="btn btn-success" style="margin-left: 10px;" (click)="save()">Créer </button>
+         
+      </div>
+    </form>
+</div>
